@@ -1,0 +1,85 @@
+<!-- Дан макет сайта  
+В блоке Featured Items небходимо реализовать шаблон товаров.
+Для этого необходимо создать json формат данных по всем товарам.
+Из этого файла сформировать блок Featured Items.
+Всю вёрстку остальных частей реализовывать не нужно, если у вас она была сделана на html/css можно использовать, заново создавать не требуется.  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"/>
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <h1 class="head">Fetured Items</h1>
+        <p class="head-text">Shop for items based on what we featured in this week</p>
+    </div>    
+    <div class="product_box">
+        <div class="product">
+            <img class="product-img" src = "img/Restangle2.jpg"  alt="photo"/>
+            <div class="product-inf">
+                <p>ELLERY X M'O CAPSULE</p>
+                <div class="cell">
+                    <p>Known for her sculptural takes on traditional tailoring, 
+                        Australian arbiter of cool Kym Ellery teams up with 
+                        Moda Operandi</p>
+                    <span></span>
+                </div>
+                <div class="cell">
+                    <p>$52.00</p>
+                    <span class="qantity"></span>
+                </div>
+                           
+            </div>
+        </div>   
+    </div>
+    <script src = "data.js"></script>
+
+    <script>
+        const userData = JSON.parse(dataProducts);
+        userData.forEach((element) => {
+            const productEl = document.createElement("div");
+            productEl.classList.add("product");
+
+            const img = document.createElement("img");
+            img.classList.add("product-img");
+            img.alt = "photo";
+            img.src = element.url;
+            console.log(element.url);
+            const productInf = document.createElement("div");
+            productInf.classList.add("product-inf");
+
+            productEl.appendChild(img);
+            productEl.appendChild(productInf);
+            
+            const cellPValues = ["name:", "explanation:", "price:"];
+            const userDataArray = Object.values(element);
+            for (let i = 0; i<cellPValues.length; i++){
+                
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+
+                const cellP = document.createElement("p");
+                cellP.textContent = cellPValues[i];
+
+                const cellSpan = document.createElement("span");
+                cellSpan.textContent = userDataArray[i];
+                if (i===6) cellSpan.classList.add("qantity");
+
+                productInf.appendChild(cell);
+                cell.appendChild(cellSpan);
+            }
+            document.querySelector(".product_box").append(productEl); 
+     
+        }            
+        );
+
+        
+    </script>
+    
+</body>
+</html>
